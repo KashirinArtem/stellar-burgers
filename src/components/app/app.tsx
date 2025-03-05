@@ -13,16 +13,14 @@ import '../../index.css';
 import styles from './app.module.css';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { ProtectedRoute } from '../../protected-route/protected-route';
-import { useDispatch, useSelector } from '../../services/store';
+import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
-import {
-  getIngredients,
-  ingredientsSelector
-} from '../../slices/ingredients.slices';
+import { getIngredients } from '../../slices/ingredients.slices';
 
 const App = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -92,7 +90,27 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path='/ingredients/:id' element={<IngredientDetails />} />
+
+        <Route
+          path='/feed/:number'
+          element={
+            <Modal
+              title={'Информация о заказе'}
+              onClose={() => console.log('Информация о заказе')}
+            >
+              <OrderInfo />
+            </Modal>
+          }
+        />
+
+        <Route
+          path='/ingredients/:id'
+          element={
+            <Modal title={'Детали ингредиента'} onClose={() => navigate(-1)}>
+              <IngredientDetails />
+            </Modal>
+          }
+        />
       </Routes>
     </div>
   );
