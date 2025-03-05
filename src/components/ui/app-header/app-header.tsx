@@ -35,7 +35,7 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
               to='/feed'
               className={clsx(
                 styles.link,
-                pathname.includes('feed') ? styles.link_active : ''
+                pathname.includes('feed') && styles.link_active
               )}
             >
               <ListIcon type={'primary'} />
@@ -51,7 +51,7 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
             to='/profile'
             className={clsx(
               styles.link,
-              pathname.includes('profile') ? styles.link_active : ''
+              pathname.includes('profile') && styles.link_active
             )}
           >
             <ProfileIcon type={'primary'} />

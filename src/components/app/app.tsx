@@ -15,10 +15,19 @@ import styles from './app.module.css';
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { ProtectedRoute } from '../../protected-route/protected-route';
+import { useDispatch, useSelector } from '../../services/store';
+import { useEffect } from 'react';
+import {
+  getIngredients,
+  ingredientsSelector
+} from '../../slices/ingredients.slices';
 
 const App = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, []);
 
   return (
     <div className={styles.app}>
