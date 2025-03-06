@@ -48,7 +48,7 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
         </div>
         <div className={styles.link_position_last}>
           <Link
-            to='/profile'
+            to='/login'
             className={clsx(
               styles.link,
               pathname.includes('profile') && styles.link_active

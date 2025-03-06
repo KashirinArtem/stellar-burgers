@@ -1,19 +1,32 @@
-import { getFeedsApi } from '@api';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getFeedsApi, getOrderByNumberApi } from '@api';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 
 export const getFeeds = createAsyncThunk('feeds/get', async () =>
   getFeedsApi()
 );
 
+export const getOrder = createAsyncThunk(
+  'feed/getOrder',
+  async (order: number) => getOrderByNumberApi(order)
+);
+
 export interface IFeedState {
   orders: TOrder[];
   isOrdersLoading: boolean;
+  order: TOrder | null;
+  isOrderLoading: boolean;
+  total: number | null;
+  totalToday: number | null;
 }
 
 export const initialState: IFeedState = {
   orders: [],
-  isOrdersLoading: false
+  isOrdersLoading: false,
+  order: null,
+  isOrderLoading: false,
+  total: null,
+  totalToday: null
 };
 
 export const feedSlice = createSlice({
@@ -21,7 +34,11 @@ export const feedSlice = createSlice({
   initialState,
   selectors: {
     ordersSelector: (state) => state.orders,
-    isOrdersLoadingSelector: (state) => state.isOrdersLoading
+    isOrdersLoadingSelector: (state) => state.isOrdersLoading,
+    orderSelector: (state) => state.order,
+    isOrderLoadingSelector: (state) => state.isOrderLoading,
+    totalSelector: (state) => state.total,
+    totalTodaySelector: (state) => state.totalToday
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -31,14 +48,34 @@ export const feedSlice = createSlice({
       })
       .addCase(getFeeds.rejected, (state) => {
         state.isOrdersLoading = false;
-        console.log('getFeeds');
+        console.error('getFeeds');
       })
       .addCase(getFeeds.fulfilled, (state, action) => {
         state.isOrdersLoading = false;
         state.orders = action.payload.orders;
+        state.total = action.payload.total;
+        state.totalToday = action.payload.totalToday;
+      })
+      .addCase(getOrder.pending, (state) => {
+        state.isOrderLoading = true;
+      })
+      .addCase(getOrder.rejected, (state) => {
+        state.isOrderLoading = false;
+        console.error('getOrder');
+      })
+      .addCase(getOrder.fulfilled, (state, action) => {
+        state.isOrderLoading = false;
+        state.order = action.payload.orders[0];
       });
   }
 });
 
-export const { ordersSelector, isOrdersLoadingSelector } = feedSlice.selectors;
+export const {
+  ordersSelector,
+  isOrdersLoadingSelector,
+  orderSelector,
+  isOrderLoadingSelector,
+  totalSelector,
+  totalTodaySelector
+} = feedSlice.selectors;
 export default feedSlice.reducer;
