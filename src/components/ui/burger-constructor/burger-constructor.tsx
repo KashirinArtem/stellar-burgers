@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useId } from 'react';
 import {
   Button,
   ConstructorElement,
@@ -44,6 +44,7 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
               ingredient={item}
               index={index}
               totalItems={constructorItems.ingredients.length}
+              // если добавить 2, будет два key  с одинаковыми значениями
               key={item.id}
             />
           )
