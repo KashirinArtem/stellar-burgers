@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { TIngredient, TTabMode } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
 import { useSelector } from 'react-redux';
-import { ingredientsSelector } from '../../slices/ingredients.slices';
+import { ingredientsSelector } from '../../slices/ingredients.slice';
 
 export type TIngredientType = 'bun' | 'main' | 'sauce';
 

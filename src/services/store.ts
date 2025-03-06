@@ -5,7 +5,7 @@ import {
   useDispatch as dispatchHook,
   useSelector as selectorHook
 } from 'react-redux';
-import ingredients from '../../src/slices/ingredients.slices';
+import ingredients from '../slices/ingredients.slice';
 import constructorBurger from '../../src/slices/constructorBurger.slice';
 
 export const rootReducer = combineReducers({

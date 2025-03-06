@@ -17,7 +17,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import { ProtectedRoute } from '../../protected-route/protected-route';
 import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
-import { getIngredients } from '../../slices/ingredients.slices';
+import { getIngredients } from '../../slices/ingredients.slice';
 
 const App = () => {
   const navigate = useNavigate();
