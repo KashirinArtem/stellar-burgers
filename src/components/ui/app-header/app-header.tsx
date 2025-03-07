@@ -51,7 +51,7 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
             to='/login'
             className={clsx(
               styles.link,
-              pathname.includes('profile') && styles.link_active
+              pathname.includes('login') && styles.link_active
             )}
           >
             <ProfileIcon type={'primary'} />

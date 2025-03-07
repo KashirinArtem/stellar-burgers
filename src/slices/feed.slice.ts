@@ -16,8 +16,8 @@ export interface IFeedState {
   isOrdersLoading: boolean;
   order: TOrder | null;
   isOrderLoading: boolean;
-  total: number | null;
-  totalToday: number | null;
+  total: number;
+  totalToday: number;
 }
 
 export const initialState: IFeedState = {
@@ -25,8 +25,8 @@ export const initialState: IFeedState = {
   isOrdersLoading: false,
   order: null,
   isOrderLoading: false,
-  total: null,
-  totalToday: null
+  total: 0,
+  totalToday: 0
 };
 
 export const feedSlice = createSlice({

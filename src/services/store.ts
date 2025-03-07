@@ -8,11 +8,13 @@ import {
 import ingredients from '../slices/ingredients.slice';
 import constructorBurger from '../../src/slices/constructorBurger.slice';
 import feed from '../../src/slices/feed.slice';
+import auth from '../../src/slices/auth.slice';
 
 export const rootReducer = combineReducers({
   ingredients,
   constructorBurger,
-  feed
+  feed,
+  auth
 });
 
 const store = configureStore({
