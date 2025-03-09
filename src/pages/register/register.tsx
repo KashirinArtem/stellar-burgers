@@ -1,18 +1,30 @@
-import { FC, SyntheticEvent, useState } from 'react';
+import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { RegisterUI } from '@ui-pages';
-import { useDispatch } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store';
 import {
-  authResponseSelector,
-  userRegistration
+  userRegistration,
+  clearError,
+  isAuthenticatedSelector,
+  errorMsgSelector
 } from '../../slices/auth.slice';
-import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export const Register: FC = () => {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const selector = useSelector(authResponseSelector);
+  const errorText = useSelector(errorMsgSelector);
+  const navigate = useNavigate();
+  const authenticated = useSelector(isAuthenticatedSelector);
+
+  useEffect(() => {
+    dispatch(clearError());
+  }, []);
+
+  useEffect(() => {
+    if (authenticated) navigate('/profile');
+  }, [authenticated]);
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -24,12 +36,11 @@ export const Register: FC = () => {
         password: password
       })
     );
-    console.log(selector);
   };
 
   return (
     <RegisterUI
-      errorText=''
+      errorText={errorText}
       email={email}
       userName={userName}
       password={password}

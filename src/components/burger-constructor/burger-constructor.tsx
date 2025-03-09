@@ -1,16 +1,19 @@
 import { FC, useMemo } from 'react';
-import { TConstructorIngredient, TIngredient } from '@utils-types';
+import { TIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
-import { useSelector } from 'react-redux';
 import {
   burgerSelector,
   IBurgerConstructorState
 } from '../../slices/constructorBurger.slice';
-import { TIconProps } from '@zlden/react-developer-burger-ui-components/dist/ui/icons/utils';
+import { useSelector } from '../../services/store';
+import { isAuthenticatedSelector } from '../../slices/auth.slice';
+import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
   const constructorItems: IBurgerConstructorState = useSelector(burgerSelector);
+  const isAuth = useSelector(isAuthenticatedSelector);
+  const navigate = useNavigate();
 
   const orderRequest = false;
 
@@ -18,6 +21,7 @@ export const BurgerConstructor: FC = () => {
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
+    if (!isAuth) navigate('/login');
   };
   const closeOrderModal = () => {};
 
