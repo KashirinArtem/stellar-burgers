@@ -16,9 +16,13 @@ export const Login: FC = () => {
   const errorText = useSelector(errorMsgSelector);
   const navigate = useNavigate();
   const authenticated = useSelector(isAuthenticatedSelector);
+  const location = useLocation();
+
+  const { from } = location.state || { from: { pathname: '/' } };
 
   useEffect(() => {
     if (authenticated) navigate('/profile', { replace: true });
+    else navigate('/login', { replace: true });
   }, [authenticated]);
 
   const handleSubmit = (e: SyntheticEvent) => {

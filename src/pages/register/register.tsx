@@ -23,7 +23,7 @@ export const Register: FC = () => {
   }, []);
 
   useEffect(() => {
-    if (authenticated) navigate('/profile');
+    if (authenticated) navigate('/');
   }, [authenticated]);
 
   const handleSubmit = (e: SyntheticEvent) => {

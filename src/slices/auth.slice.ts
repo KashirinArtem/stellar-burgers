@@ -162,7 +162,7 @@ const authSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state, action) => {
         state.isUserRequest = false;
-        state.isAuthenticated = true;
+        state.isAuthenticated = false;
         state.user = null;
       })
       .addCase(getUserOrders.pending, (state) => {
