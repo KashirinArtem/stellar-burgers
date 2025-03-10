@@ -4,13 +4,13 @@ import { TOrder } from '@utils-types';
 
 export interface IOrderState {
   order: TOrder | null;
-  isOrderLoaded: boolean;
+  isOrderRequest: boolean;
   errorMsg: string;
 }
 
 export const initialState: IOrderState = {
   order: null,
-  isOrderLoaded: false,
+  isOrderRequest: false,
   errorMsg: ''
 };
 
@@ -22,28 +22,33 @@ export const postOrder = createAsyncThunk(
 export const orderSlice = createSlice({
   name: 'order',
   initialState,
-  reducers: {},
+  reducers: {
+    removeOrder: (state) => {
+      state.order = null;
+      state.isOrderRequest = false;
+    }
+  },
   selectors: {
-    isOrderLoadedSelector: (state) => state.isOrderLoaded,
-    orderSelector: (state) => state.isOrderLoaded
+    isOrderRequestSelector: (state) => state.isOrderRequest,
+    orderSelector: (state) => state.order
   },
   extraReducers: (builder) => {
     builder
       .addCase(postOrder.pending, (state) => {
-        state.isOrderLoaded = true;
+        state.isOrderRequest = true;
       })
       .addCase(postOrder.rejected, (state, action) => {
-        state.isOrderLoaded = false;
+        state.isOrderRequest = false;
         state.errorMsg = action.error.message || '';
         console.error('postOrder/reject', action.error);
       })
       .addCase(postOrder.fulfilled, (state, action) => {
-        state.isOrderLoaded = false;
+        state.isOrderRequest = false;
         state.order = action.payload.order;
       });
   }
 });
 
-export const {} = orderSlice.actions;
-export const { isOrderLoadedSelector, orderSelector } = orderSlice.selectors;
+export const { removeOrder } = orderSlice.actions;
+export const { isOrderRequestSelector, orderSelector } = orderSlice.selectors;
 export default orderSlice.reducer;

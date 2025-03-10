@@ -16,9 +16,6 @@ export const Login: FC = () => {
   const errorText = useSelector(errorMsgSelector);
   const navigate = useNavigate();
   const authenticated = useSelector(isAuthenticatedSelector);
-  const location = useLocation();
-
-  const { from } = location.state || { from: { pathname: '/' } };
 
   useEffect(() => {
     if (authenticated) navigate('/profile', { replace: true });

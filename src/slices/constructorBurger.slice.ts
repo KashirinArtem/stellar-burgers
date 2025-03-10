@@ -55,11 +55,15 @@ export const constructorBurgerSlice = createSlice({
       state.ingredients = state.ingredients.filter(
         (ing) => ing._id !== action.payload._id
       );
+    },
+    clearConstructor: (state) => {
+      state.bun = null;
+      state.ingredients = [];
     }
   }
 });
 
 export const { burgerSelector } = constructorBurgerSlice.selectors;
-export const { add, moveUp, moveDown, deleteItem } =
+export const { add, moveUp, moveDown, deleteItem, clearConstructor } =
   constructorBurgerSlice.actions;
 export default constructorBurgerSlice.reducer;
