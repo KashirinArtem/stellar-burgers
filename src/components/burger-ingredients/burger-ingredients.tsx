@@ -3,8 +3,8 @@ import { useInView } from 'react-intersection-observer';
 
 import { TIngredient, TTabMode } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
-import { useSelector } from 'react-redux';
 import { ingredientsSelector } from '../../slices/ingredients.slice';
+import { useSelector } from '../../services/store';
 
 export type TIngredientType = 'bun' | 'main' | 'sauce';
 
