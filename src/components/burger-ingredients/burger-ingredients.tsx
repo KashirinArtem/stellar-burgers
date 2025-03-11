@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, FC } from 'react';
+import { useState, useRef, useEffect, FC, useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { TIngredient, TTabMode } from '@utils-types';
@@ -16,9 +16,18 @@ export const BurgerIngredients: FC = () => {
     type: TIngredientType
   ) => ingredients.filter((ing) => ing.type === type);
 
-  const buns = filterIngredients(ingredients, 'bun');
-  const mains = filterIngredients(ingredients, 'main');
-  const sauces = filterIngredients(ingredients, 'sauce');
+  const buns = useMemo(
+    () => ingredients.filter((ing) => ing.type === 'bun'),
+    [ingredients]
+  );
+  const mains = useMemo(
+    () => ingredients.filter((ing) => ing.type === 'main'),
+    [ingredients]
+  );
+  const sauces = useMemo(
+    () => ingredients.filter((ing) => ing.type === 'sauce'),
+    [ingredients]
+  );
 
   const [currentTab, setCurrentTab] = useState<TTabMode>('bun');
   const titleBunRef = useRef<HTMLHeadingElement>(null);
