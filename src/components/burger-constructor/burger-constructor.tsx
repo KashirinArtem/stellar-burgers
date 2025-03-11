@@ -35,11 +35,12 @@ export const BurgerConstructor: FC = () => {
         ...constructorItems.ingredients.map((ing) => ing._id)
       ])
     );
+
+    dispatch(clearConstructor());
   };
   const closeOrderModal = () => {
     navigate('/', { replace: true });
     dispatch(removeOrder());
-    dispatch(clearConstructor());
   };
 
   const price = useMemo(() => {
