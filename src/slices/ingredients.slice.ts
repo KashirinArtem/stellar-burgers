@@ -12,8 +12,9 @@ export const initialState: IIngredientsState = {
   isIngredientsLoaded: false
 };
 
-export const getIngredients = createAsyncThunk('ingredients/get', async () =>
-  getIngredientsApi()
+export const getIngredients = createAsyncThunk(
+  'ingredients/get',
+  getIngredientsApi
 );
 
 export const ingredientsSlice = createSlice({

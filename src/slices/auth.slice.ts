@@ -89,12 +89,10 @@ export const logout = createAsyncThunk('logout/user', async () =>
 );
 
 // orders
-export const getUserOrders = createAsyncThunk('orders/user', async () =>
-  getOrdersApi()
-);
+export const getUserOrders = createAsyncThunk('orders/user', getOrdersApi);
 
 // user
-export const getUser = createAsyncThunk('get/user', async () => getUserApi());
+export const getUser = createAsyncThunk('get/user', getUserApi);
 
 const authSlice = createSlice({
   name: 'auth',
