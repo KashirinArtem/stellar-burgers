@@ -27,19 +27,17 @@ export const BurgerConstructor: FC = () => {
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
-    if (!isAuth) return navigate('/login');
-
-    console.log(constructorItems);
+    if (!isAuth) return navigate('/login', { replace: true });
 
     dispatch(
       postOrder([
-        constructorItems.bun._id,
+        constructorItems.bun._id!,
         ...constructorItems.ingredients.map((ing) => ing._id)
       ])
     );
   };
   const closeOrderModal = () => {
-    navigate('/');
+    navigate('/', { replace: true });
     dispatch(removeOrder());
     dispatch(clearConstructor());
   };

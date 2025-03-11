@@ -2,14 +2,15 @@ import { ReactNode } from 'react';
 import { useSelector } from '../../services/store';
 import {
   isAuthenticatedSelector,
-  isUserRequestSelector
+  isUserRequestSelector,
+  userSelector
 } from '../../slices/auth.slice';
 import { Preloader } from '@ui';
 import { Navigate, useLocation } from 'react-router-dom';
 
 interface IProtectedRouteProps {
   children: React.ReactElement;
-  onlyUnAuth?: boolean; // ???
+  onlyUnAuth?: boolean;
 }
 export const ProtectedRoute = ({
   children,
@@ -19,13 +20,17 @@ export const ProtectedRoute = ({
   const isUserRequest = useSelector(isUserRequestSelector);
   const location = useLocation();
 
-  if (!isAuthenticated && isUserRequest) return <Preloader />;
+  if (!isAuthenticated && isUserRequest) {
+    return <Preloader />;
+  }
 
-  if (!onlyUnAuth && !isAuthenticated)
-    return <Navigate replace to='/login' state={{ to: location }} />;
+  if (onlyUnAuth && isAuthenticated) {
+    const from = location.state?.from || { pathname: '/profile' };
+    return <Navigate replace to={from} state={location} />;
+  }
 
-  if (!onlyUnAuth && isAuthenticated) {
-    return <Navigate replace to='/' state={location} />;
+  if (!onlyUnAuth && !isAuthenticated) {
+    return <Navigate replace to='/login' state={{ from: location }} />;
   }
 
   return children;

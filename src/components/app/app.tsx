@@ -18,7 +18,7 @@ import { ProtectedRoute } from '../protected-route/protected-route';
 import { useDispatch, useSelector } from '../../services/store';
 import { useEffect } from 'react';
 import { getIngredients } from '../../slices/ingredients.slice';
-import { getUser } from '../../slices/auth.slice';
+import { getUser, isAuthenticatedSelector } from '../../slices/auth.slice';
 
 const App = () => {
   const location = useLocation();
@@ -73,7 +73,7 @@ const App = () => {
         <Route
           path='/profile'
           element={
-            <ProtectedRoute onlyUnAuth>
+            <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
           }
@@ -81,8 +81,16 @@ const App = () => {
         <Route
           path='/profile/orders'
           element={
-            <ProtectedRoute onlyUnAuth>
+            <ProtectedRoute>
               <ProfileOrders />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <ProtectedRoute>
+              <OrderInfo />
             </ProtectedRoute>
           }
         />

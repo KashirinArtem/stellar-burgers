@@ -15,12 +15,9 @@ export const Login: FC = () => {
   const dispatch = useDispatch();
   const errorText = useSelector(errorMsgSelector);
   const navigate = useNavigate();
-  const authenticated = useSelector(isAuthenticatedSelector);
+  const location = useLocation();
 
-  useEffect(() => {
-    if (authenticated) navigate('/profile', { replace: true });
-    else navigate('/login', { replace: true });
-  }, [authenticated]);
+  const { from } = location.state || { from: { pathname: '/' } };
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -31,6 +28,8 @@ export const Login: FC = () => {
         password
       })
     );
+
+    navigate(from.pathname, { replace: true });
   };
 
   useEffect(() => {
