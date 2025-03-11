@@ -29,6 +29,8 @@ export const BurgerConstructor: FC = () => {
     if (!constructorItems.bun || orderRequest) return;
     if (!isAuth) return navigate('/login');
 
+    console.log(constructorItems);
+
     dispatch(
       postOrder([
         constructorItems.bun._id,

@@ -1,5 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, PrepareAction } from '@reduxjs/toolkit';
 import { TConstructorIngredient, TIngredient } from '@utils-types';
+import reducer from './ingredients.slice';
+import { v4 as uuid } from 'uuid';
 
 export interface IBurgerConstructorState {
   bun: TIngredient | null;
@@ -22,16 +24,14 @@ export const constructorBurgerSlice = createSlice({
     burgerSelector: (state) => state
   },
   reducers: {
-    add: (state, action: PayloadAction<TIngredient>) => {
-      const { type } = action.payload;
-
-      if (type === 'bun') state.bun = action.payload;
-      else {
-        state.ingredients.push({
-          ...action.payload,
-          id: Date.now().toString()
-        });
-      }
+    add: {
+      reducer: (state, action: PayloadAction<TConstructorIngredient>) => {
+        if (action.payload.type === 'bun') state.bun = action.payload;
+        else state.ingredients.push(action.payload);
+      },
+      prepare: (ingredient: TIngredient) => ({
+        payload: { ...ingredient, id: uuid() }
+      })
     },
     moveUp: (state, action: PayloadAction<number>) => {
       // изменяет положение элемента в массиве относительно текущего на -1(вверх)
