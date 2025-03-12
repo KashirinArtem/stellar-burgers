@@ -32,7 +32,8 @@ export const BurgerConstructor: FC = () => {
     dispatch(
       postOrder([
         constructorItems.bun._id!,
-        ...constructorItems.ingredients.map((ing) => ing._id)
+        ...constructorItems.ingredients.map((ing) => ing._id),
+        constructorItems.bun._id!
       ])
     );
 
