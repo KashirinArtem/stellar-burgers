@@ -14,19 +14,9 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TOrder, TUser } from '@utils-types';
 import { deleteCookie, setCookie } from '../../src/utils/cookie';
 
-// регистрация registerUserApi+
-// вход loginUserApi+
-// выход logoutApi +
-// обновить updateUserApi+
-// заказы getOrdersApi+
-// user getUserApi+
-
-// нужно чистить ошибку
-// куда ведет после успешной регистрации???
-
 export interface IAuthState {
   isAuthenticated: boolean;
-  user: TUser | null; // ???
+  user: TUser | null;
   isUserRequest: boolean;
   errorMsg: string;
   isOrderRequest: boolean;
@@ -42,13 +32,11 @@ const initialState: IAuthState = {
   isOrderRequest: false
 };
 
-//registration
 export const userRegistration = createAsyncThunk(
   'registration/user',
   async (user: TRegisterData): Promise<TUser> =>
     registerUserApi(user).then(
       ({ refreshToken, accessToken, user }: TAuthResponse) => {
-        // сетим куки и хранилище
         localStorage.setItem('refreshToken', refreshToken);
         setCookie('accessToken', accessToken);
         return user as TUser;
@@ -56,13 +44,11 @@ export const userRegistration = createAsyncThunk(
     )
 );
 
-// login
 export const loginUser = createAsyncThunk(
   'login/user',
   async (data: TLoginData): Promise<TUser> =>
     loginUserApi(data).then(
       ({ refreshToken, accessToken, user }: TAuthResponse) => {
-        // сетим куки и хранилище
         localStorage.setItem('refreshToken', refreshToken);
         setCookie('accessToken', accessToken);
 
@@ -71,15 +57,12 @@ export const loginUser = createAsyncThunk(
     )
 );
 
-// updateUser
 export const updateUser = createAsyncThunk(
   'update/user',
   async (data: Partial<TRegisterData>) => updateUserApi(data)
 );
 
-// logout
 export const logout = createAsyncThunk('logout/user', async () =>
-  // удаляем куки и чистим хранилище
   logoutApi().then((res: TServerResponse<{}>) => {
     if (res.success) {
       deleteCookie('accessToken');
@@ -88,10 +71,8 @@ export const logout = createAsyncThunk('logout/user', async () =>
   })
 );
 
-// orders
 export const getUserOrders = createAsyncThunk('orders/user', getOrdersApi);
 
-// user
 export const getUser = createAsyncThunk('get/user', getUserApi);
 
 const authSlice = createSlice({

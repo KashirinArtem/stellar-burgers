@@ -17,7 +17,6 @@ import {
 } from '../../slices/order.slice';
 
 export const BurgerConstructor: FC = () => {
-  /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
   const constructorItems: IBurgerConstructorState = useSelector(burgerSelector);
   const isAuth = useSelector(isAuthenticatedSelector);
   const orderRequest = useSelector(isOrderRequestSelector);

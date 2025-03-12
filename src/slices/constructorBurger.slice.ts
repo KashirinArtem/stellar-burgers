@@ -12,10 +12,6 @@ const initialState: IBurgerConstructorState = {
   bun: null,
   ingredients: []
 };
-// add+
-// down+
-// up+
-// delete
 
 export const constructorBurgerSlice = createSlice({
   name: 'constructorBurger',
@@ -34,7 +30,6 @@ export const constructorBurgerSlice = createSlice({
       })
     },
     moveUp: (state, action: PayloadAction<number>) => {
-      // изменяет положение элемента в массиве относительно текущего на -1(вверх)
       const index = action.payload;
       state.ingredients.splice(
         index - 1,
@@ -43,7 +38,6 @@ export const constructorBurgerSlice = createSlice({
       );
     },
     moveDown: (state, action: PayloadAction<number>) => {
-      // изменяет положение элемента в массиве относительно текущего на +1(вниз)
       const index = action.payload;
       state.ingredients.splice(
         index + 1,

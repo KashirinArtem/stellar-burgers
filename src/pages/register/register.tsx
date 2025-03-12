@@ -22,10 +22,6 @@ export const Register: FC = () => {
     dispatch(clearError());
   }, []);
 
-  // useEffect(() => {
-  //   if (authenticated) navigate('/');
-  // }, [authenticated]);
-
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
 
