@@ -17,8 +17,6 @@ export const Login: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { from } = location.state || { from: { pathname: '/' } };
-
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
 
@@ -28,8 +26,8 @@ export const Login: FC = () => {
         password
       })
     );
-
-    navigate(from.pathname, { replace: true });
+    const { from } = location.state || { from: { pathname: '/' } };
+    navigate(from, { replace: true });
   };
 
   useEffect(() => {
