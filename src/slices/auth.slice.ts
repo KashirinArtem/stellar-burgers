@@ -9,7 +9,7 @@ import {
   TRegisterData,
   TServerResponse,
   updateUserApi
-} from '@api';
+} from '../utils/burger-api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TOrder, TUser } from '@utils-types';
 import { deleteCookie, setCookie } from '../../src/utils/cookie';
