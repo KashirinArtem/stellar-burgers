@@ -19,7 +19,6 @@ export const rootReducer = combineReducers({
   order
 });
 
-
 const store = configureStore({
   reducer: rootReducer,
   devTools: process.env.NODE_ENV !== 'production'

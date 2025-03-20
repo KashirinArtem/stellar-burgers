@@ -5,7 +5,7 @@ import { TIngredient } from '@utils-types';
 export interface IIngredientsState {
   isIngredientsLoaded: boolean;
   ingredients: TIngredient[];
-  error: null | string
+  error: null | string;
 }
 
 export const initialState: IIngredientsState = {
